@@ -1,23 +1,9 @@
-# 使用官方 Node.js 运行时作为基础镜像
-FROM node:18-alpine
-
-# 设置工作目录
-WORKDIR /app
-
-# 复制 package.json 和 package-lock.json（如果存在）
-COPY package*.json ./
-
-
-# 暴露端口
-EXPOSE 3000
-
-# 设置环境变量
-ENV NODE_ENV=production
-ENV PORT=3000
-
-# 健康检查
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node healthcheck.js
-
-# 启动应用
-CMD ["npm", "start"]
+FROM python:3.14-slim-bookworm
+RUN apt update -y && \
+    apt install ffmpeg -y && \
+    cp /etc/apt/sources.list.d/debian.sources /etc/apt/sources.list.d/debian.sources.bak && \
+    sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources && \
+    sed -i 's|security.debian.org|security.mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources && \
+    apt install pkg-config libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libavdevice-dev -y && \
+    pip install openai-whisper -i https://mirrors.aliyun.com/pypi/simple/ && \
+    pip install faster-whisper -i https://mirrors.aliyun.com/pypi/simple/
