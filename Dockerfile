@@ -8,7 +8,7 @@ RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debia
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget -O /usr/local/share/ca-certificates/SunlineHaitechRootCA.crt http://file.odc.sunline.cn/download/CA/SunlineHaitechRootCA.crt && \
+COPY SunlineHaitechRootCA.crt /usr/local/share/ca-certificates/SunlineHaitechRootCA.crt  && \
     update-ca-certificates
 
 RUN pip3 install --break-system-packages --no-cache-dir \
