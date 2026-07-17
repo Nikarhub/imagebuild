@@ -8,8 +8,9 @@ RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debia
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY SunlineHaitechRootCA.crt /usr/local/share/ca-certificates/SunlineHaitechRootCA.crt  && \
-    update-ca-certificates
+COPY SunlineHaitechRootCA.crt /usr/local/share/ca-certificates/SunlineHaitechRootCA.crt
+
+RUN update-ca-certificates
 
 RUN pip3 install --break-system-packages --no-cache-dir \
     -i https://mirrors.aliyun.com/pypi/simple/ \
