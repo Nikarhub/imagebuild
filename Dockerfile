@@ -6,11 +6,11 @@ RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debia
         python3 python3-pip python3-dev build-essential \
         ruby-full && \
     apt clean && \
-    rm -rf /var/lib/apt/lists/* && \
+    
     wget /bin/kubelet https://dl.k8s.io/v1.36.2/bin/linux/amd64/kubelet && \
-    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && \
-    chmod 700 get_helm.sh && \
-    ./get_helm.sh
+    wget https://get.helm.sh/helm-v4.2.3-linux-amd64.tar.gz && \
+    tar -xvf helm-v4.2.3-linux-amd64.tar.gz && cp -ar linux-amd64/helm /bin/helm  && \
+    rm -rf /var/lib/apt/lists/* helm-v4.2.3-linux-amd64.tar.gz
 
 COPY SunlineHaitechRootCA.crt /usr/local/share/ca-certificates/SunlineHaitechRootCA.crt
 
