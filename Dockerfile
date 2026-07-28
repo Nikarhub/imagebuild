@@ -20,8 +20,8 @@ RUN npm config set registry https://registry.npmmirror.com && \
     npm install -g @openai/codex clawhub && \
     npm cache clean --force
 
-RUN wget https://dl.k8s.io/v1.36.2/bin/linux/amd64/kubelet -O /usr/bin/kubelet && \
+RUN wget https://dl.k8s.io/release/v1.36.0/bin/linux/amd64/kubectl -O /usr/bin/kubectl && \
     wget https://get.helm.sh/helm-v4.2.3-linux-amd64.tar.gz && \
     tar -xvf helm-v4.2.3-linux-amd64.tar.gz && cp -ar linux-amd64/helm /usr/bin/helm  && \
-    chmod +x /usr/bin/kubelet /usr/bin/helm  && \
+    chmod +x /usr/bin/kubectl /usr/bin/helm  && \
     rm -rf /var/lib/apt/lists/* helm-v4.2.3-linux-amd64.tar.gz
