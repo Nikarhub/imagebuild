@@ -5,12 +5,8 @@ RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debia
         wget git ripgrep fd-find tree jq curl \
         python3 python3-pip python3-dev build-essential \
         ruby-full && \
-    apt clean && \
-    wget https://dl.k8s.io/v1.36.2/bin/linux/amd64/kubelet -O /usr/bin/kubelet && \
-    wget https://get.helm.sh/helm-v4.2.3-linux-amd64.tar.gz && \
-    tar -xvf helm-v4.2.3-linux-amd64.tar.gz && cp -ar linux-amd64/helm /usr/bin/helm  && \
-    chmod +x /usr/bin/kubelet /usr/bin/helm  && \
-    rm -rf /var/lib/apt/lists/* helm-v4.2.3-linux-amd64.tar.gz
+        apt clean  && \
+        rm -rf /var/lib/apt/lists/* 
 
 COPY SunlineHaitechRootCA.crt /usr/local/share/ca-certificates/SunlineHaitechRootCA.crt
 
@@ -23,3 +19,9 @@ RUN pip3 install --break-system-packages --no-cache-dir \
 RUN npm config set registry https://registry.npmmirror.com && \
     npm install -g @openai/codex clawhub && \
     npm cache clean --force
+
+RUN wget https://dl.k8s.io/v1.36.2/bin/linux/amd64/kubelet -O /usr/bin/kubelet && \
+    wget https://get.helm.sh/helm-v4.2.3-linux-amd64.tar.gz && \
+    tar -xvf helm-v4.2.3-linux-amd64.tar.gz && cp -ar linux-amd64/helm /usr/bin/helm  && \
+    chmod +x /usr/bin/kubelet /usr/bin/helm  && \
+    rm -rf /var/lib/apt/lists/* helm-v4.2.3-linux-amd64.tar.gz
